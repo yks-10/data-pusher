@@ -75,7 +75,7 @@ __Steps__
                 
         python manage.py runserver          # to run the server
 
-4. Run server in docker 
+4. Run server in docker (optional)
     
         sudo apt-get install docker        
 
@@ -84,5 +84,8 @@ __Steps__
         docker run -p 8000:8000 datapusher    # to run server using docker
                 
 
+5. Run asgi server
+
+         daphne datapusher.asgi:application   # to run asgi server
 
         
