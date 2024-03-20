@@ -3,7 +3,10 @@
 
 ## Introduction
 
-This project built and exposes the dependent rest endpoints to Data Pusher.
+This application build to receive data into the app server for an account
+and send it across different platforms from that particular account using webhook
+URLs.
+
 ## Technology Considerations
 ### Consideration1: Development 
     1. Programming Language                Python
@@ -20,13 +23,6 @@ This project built and exposes the dependent rest endpoints to Data Pusher.
 ├── datapusher
     ├── env 
        ├── account
-            ├──__init__.py
-            ├──celery.py
-            ├──constants.py
-            ├──urls.py
-            ├──views.py
-            ├──wsgi.py
-       ├── account
             ├──migrations
                 └──__init__.py
             ├──__init__.py
@@ -39,11 +35,13 @@ This project built and exposes the dependent rest endpoints to Data Pusher.
        ── datapusher
             ├──__init__.py
             ├──asgi.py
+            ├──consumers.py
             ├──settings.py
             ├──urls.py
             ├──wsgi.py
     ├──manage.py
-    ├──README.md
+    ├──readme.md
+    ├──Dockerfile
     ├──requirements.txt 
 ```
    
