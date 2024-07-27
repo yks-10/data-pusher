@@ -11,6 +11,7 @@ from .utils import CommonUtils
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 CommonUtils.setup_logging()
 logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ schema_view = get_schema_view(
 
 # HealthView to check server status
 class HealthView(APIView):
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     @swagger_auto_schema(
         operation_description="Check if server is active or not",
         responses={200: "SUCCESS"},

@@ -20,7 +20,6 @@ class DataHandlerConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        logger.info("Received data: %s", data)
         response = await self.handle_data(data)
         await self.send(text_data=json.dumps(response))
 

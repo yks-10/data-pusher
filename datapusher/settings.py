@@ -78,8 +78,24 @@ WSGI_APPLICATION = 'datapusher.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'data_pusher',
+        'USER': 'postgres',
+        'PASSWORD': 'welcome',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '100/day',
+        'anon': '10/minute'
     }
 }
 
@@ -111,6 +127,8 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L1ON = True
 
 USE_TZ = True
 

@@ -20,7 +20,7 @@ class CommonUtils(object):
     @staticmethod
     def generate_response(data=None, status_code=status.HTTP_200_OK, message=None):
         response_data = {
-            "status": "success" if status_code == status.HTTP_200_OK else "failed",
+            "status": "success" if status_code == status.HTTP_200_OK or status.HTTP_201_CREATED else "failed",
             "data": data,
             "message": message
         }
