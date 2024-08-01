@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'account.middleware.RequestTimingMiddleware',
 ]
 
 ROOT_URLCONF = 'datapusher.urls'
@@ -98,6 +99,14 @@ REST_FRAMEWORK = {
         'anon': '10/minute'
     }
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'yogeshkrishnanseeniraj@gmail.com'
+EMAIL_HOST_PASSWORD = 'msgxlojmpfzikyuv' # msgx lojm pfzi kyuv
+DEFAULT_FROM_EMAIL = 'yogeshkrishnanseeniraj@gmail.com'
 
 
 # Password validation

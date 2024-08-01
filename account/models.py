@@ -18,6 +18,7 @@ class Account(models.Model):
     def __str__(self):
         return str(self.account_id)
 
+
 class Destination(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     url = models.URLField(blank=False, null=False)
@@ -29,5 +30,4 @@ class Destination(models.Model):
 
     def __str__(self):
         return f"Destination for {self.account.account_name}"
-
 
