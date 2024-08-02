@@ -1,5 +1,7 @@
 import uuid
 from django.db import models
+from django.db.models import Index, UniqueConstraint, CheckConstraint, Q
+
 
 class Account(models.Model):
     account_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique= True)
@@ -13,7 +15,16 @@ class Account(models.Model):
 
     class Meta:
         verbose_name = 'Account'
-        ordering = ['-pk']
+        verbose_name_plural = 'Accounts'
+        ordering = ['-created_at', 'account_name']
+        indexes = [
+            Index(fields=['account_name'], name='account_name_idx'),
+            Index(fields=['email'], name='email_idx'),
+        ]
+        constraints = [
+            UniqueConstraint(fields=['account_name', 'email'], name='unique_account_email'),
+            CheckConstraint(check=Q(is_deleted=False), name='is_not_deleted'),
+        ]
 
     def __str__(self):
         return str(self.account_id)
@@ -27,6 +38,11 @@ class Destination(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Destination'
+        verbose_name_plural = 'Destinations'
+        ordering = ['-pk']
 
     def __str__(self):
         return f"Destination for {self.account.account_name}"
