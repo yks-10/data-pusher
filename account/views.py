@@ -12,11 +12,14 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 CommonUtils.setup_logging()
 logger = logging.getLogger(__name__)
 
 
+CACHE_TTL = 60 * 15
 # swagger doc info
 schema_view = get_schema_view(
     openapi.Info(
@@ -61,6 +64,13 @@ class AccountView(APIView):
             404: "Account not found",
         },
     )
+
+
+    #cache
+    @method_decorator(cache_page(CACHE_TTL))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         """
             @description: This API used to retrieve account details

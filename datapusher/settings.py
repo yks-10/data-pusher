@@ -74,8 +74,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'datapusher.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 DATABASES = {
     'default': {
