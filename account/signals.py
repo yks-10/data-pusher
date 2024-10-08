@@ -1,9 +1,10 @@
 # account/signals.py
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import Account
 from django.core.mail import send_mail
+from .documents import AccountDocument
 @receiver(post_save, sender=Account)
 def create_account_profile(sender, instance, created, **kwargs):
     if created:
@@ -20,3 +21,11 @@ def send_welcome_email(sender, instance, created, **kwargs):
             [instance.email],
             fail_silently=False,
         )
+
+@receiver(post_save, sender=Account)
+def index_document(sender, instance, **kwargs):
+    AccountDocument().update(instance)
+
+@receiver(post_delete, sender=Account)
+def delete_document(sender, instance, **kwargs):
+    AccountDocument().delete(instance)
